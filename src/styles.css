@@ -1390,16 +1390,108 @@ html[data-cfb] .alert-info {
 
 /* ------------------------------------------------------------------ footer */
 
+/* Compact footer: info lines joined with dots, links below, sponsors as a small row. */
 html[data-cfb] #footer {
-  color: var(--cfb-muted);
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 8px;
+  margin-top: 28px !important;
+  padding: 18px 0 26px !important;
   border-top: 1px solid var(--cfb-border) !important;
-  padding-top: 18px;
-  line-height: 1.7;
+  color: var(--cfb-muted);
+  font-size: 1.15rem !important;
+  line-height: 1.5;
+  text-align: center;
 }
 
-html[data-cfb][data-cfb-theme="dark"] #footer .footer-logo-div img,
-html[data-cfb][data-cfb-theme="dark"] #footer .itmo-logo {
-  filter: invert(1) hue-rotate(180deg);
+html[data-cfb] #footer > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[data-cfb] #footer > div:nth-child(2)::before,
+html[data-cfb] #footer > div:nth-child(3)::before,
+html[data-cfb] #footer > div:nth-child(4)::before {
+  content: "·";
+  margin: 0 8px;
+  opacity: 0.6;
+}
+
+html[data-cfb] #footer a:link,
+html[data-cfb] #footer a:visited {
+  color: var(--cfb-muted) !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease;
+}
+
+html[data-cfb] #footer a:hover {
+  color: var(--cfb-text) !important;
+}
+
+html[data-cfb] #footer sup {
+  font-size: 0.75em;
+}
+
+html[data-cfb] #footer > .smaller {
+  flex-basis: 100%;
+  font-size: 1.05rem !important;
+}
+
+html[data-cfb] #footer > .smaller a + a::before,
+html[data-cfb] #footer > .smaller a {
+  margin: 0 4px;
+}
+
+/* "При поддержке" + logos on one line */
+html[data-cfb] #footer > div:has(+ .footer-logo-div) {
+  margin-right: 12px !important;
+  font-size: 1.05rem;
+}
+
+html[data-cfb] #footer .footer-logo-div {
+  position: static !important;
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+html[data-cfb] #footer .footer-logo-div a {
+  display: flex;
+  align-items: center;
+}
+
+html[data-cfb] #footer .footer-logo-div img {
+  height: 22px !important;
+  width: auto !important;
+  margin: 0 !important;
+  opacity: 0.75;
+  transition: opacity 0.15s ease;
+}
+
+html[data-cfb] #footer .footer-logo-div img[src*="telegram"] {
+  border-radius: 50%;
+}
+
+html[data-cfb] #footer .footer-logo-div img[src*="itmo"] {
+  height: 16px !important;
+}
+
+html[data-cfb] #footer .footer-logo-div a:hover img {
+  opacity: 1;
+}
+
+html[data-cfb] #footer .footer-logo-div .sep {
+  width: 1px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  background: var(--cfb-border-strong) !important;
+  border: 0 !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] #footer .footer-logo-div img[src*="itmo"] {
+  filter: brightness(0) invert(1);
 }
 
 /* ------------------------------------------------------------------ dark: legacy inline colors */
