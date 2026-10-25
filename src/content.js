@@ -194,7 +194,29 @@
     header.querySelector(".title")?.after(el);
   }
 
+  // Sample input: mark where each test case starts/ends and highlight a whole
+  // case on hover. Lines carry Codeforces' "test-example-line-<N>" classes.
+  function groupSampleLines() {
+    const caseOf = (line) => [...line.classList].find((c) => /^test-example-line-\d+$/.test(c));
+    for (const pre of document.querySelectorAll(".sample-test pre")) {
+      const lines = [...pre.querySelectorAll(".test-example-line")];
+      if (!lines.length || pre.dataset.cfbGrouped) continue;
+      pre.dataset.cfbGrouped = "";
+      lines.forEach((line, i) => {
+        line.classList.toggle("cfb-tc-first", caseOf(line) !== caseOf(lines[i - 1] ?? pre));
+        line.classList.toggle("cfb-tc-last", caseOf(line) !== caseOf(lines[i + 1] ?? pre));
+      });
+      const highlight = (target, on) => {
+        const id = target?.closest?.(".test-example-line") && caseOf(target.closest(".test-example-line"));
+        if (id) for (const line of pre.getElementsByClassName(id)) line.classList.toggle("cfb-tc-hover", on);
+      };
+      pre.addEventListener("mouseover", (e) => highlight(e.target, true));
+      pre.addEventListener("mouseout", (e) => highlight(e.target, false));
+    }
+  }
+
   function onReady() {
+    groupSampleLines();
     injectToggle();
     labelLimits();
     badgeProblemList();

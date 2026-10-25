@@ -968,16 +968,50 @@ html[data-cfb] .sample-test pre {
   overflow-x: auto;
 }
 
-/* Codeforces tags each test case's lines odd/even. Instead of zebra bands,
-   mark every other test case with a thin accent bar on the left. */
+/* Codeforces tags each test case's lines odd/even. Every other test case gets a
+   soft accent tint; content.js marks the first/last line of each case so the
+   group reads as one rounded block, and hover lights up the whole case. */
 html[data-cfb] .sample-test .test-example-line {
-  margin: 0 -14px;
-  padding: 0 14px;
+  margin: 0 -8px;
+  padding: 0 8px;
   background: transparent !important;
+  transition: background-color 0.12s ease;
 }
 
 html[data-cfb] .sample-test .test-example-line-odd {
-  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--cfb-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--cfb-accent) 7%, transparent) !important;
+}
+
+html[data-cfb] .sample-test .test-example-line.cfb-tc-first {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+html[data-cfb] .sample-test .test-example-line.cfb-tc-last {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* Codeforces' own "test N" marker shown next to the hovered case. */
+html[data-cfb] .testCaseMarker,
+html[data-cfb][data-cfb-theme="dark"] .testCaseMarker.notice {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--cfb-accent);
+  color: var(--cfb-on-accent) !important;
+  font-family: var(--cfb-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+  transform: translate(-2px, 1px);
+}
+
+html[data-cfb] .sample-test .test-example-line.cfb-tc-hover {
+  background: color-mix(in srgb, var(--cfb-accent) 16%, transparent) !important;
 }
 
 /* Copy button becomes an icon. */
