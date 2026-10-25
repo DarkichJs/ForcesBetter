@@ -221,6 +221,15 @@ html[data-cfb] .roundbox {
   overflow: hidden;
 }
 
+/* Boxes with dropdowns must not clip them. */
+html[data-cfb] .roundbox:has(.SumoSelect) {
+  overflow: visible;
+}
+
+html[data-cfb] .roundbox:has(.SumoSelect) > .caption {
+  border-radius: var(--cfb-radius) var(--cfb-radius) 0 0;
+}
+
 /* Nested decorative roundboxes (tags, small badges) stay flat. */
 html[data-cfb] .roundbox .roundbox {
   box-shadow: none;
@@ -589,6 +598,13 @@ html[data-cfb] #pageContent > form.submit-form .table-form td.field-name {
   text-align: left !important;
 }
 
+html[data-cfb] #pageContent > div:has(+ div + form.submit-form) {
+  margin: 0 0 2px !important;
+  text-align: left !important;
+  color: var(--cfb-muted);
+  font-size: 1.3rem !important;
+}
+
 html[data-cfb] #pageContent > div:has(+ form.submit-form) {
   margin: 0 0 12px !important;
   text-align: left !important;
@@ -618,6 +634,92 @@ html[data-cfb] form.customtest textarea:not(.ace_text-input) {
 
 html[data-cfb] form.customtest input[type="submit"] {
   padding: 8px 28px !important;
+}
+
+/* SumoSelect dropdowns (contest filters etc.) */
+html[data-cfb] .SumoSelect > .CaptionCont {
+  background: var(--cfb-surface) !important;
+  color: var(--cfb-text) !important;
+  border: 1px solid var(--cfb-border-strong) !important;
+  border-radius: var(--cfb-radius-sm) !important;
+  box-shadow: none !important;
+}
+
+html[data-cfb] .SumoSelect > .CaptionCont > span.placeholder {
+  color: var(--cfb-muted) !important;
+  font-style: normal !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .SumoSelect > .CaptionCont > label > i {
+  filter: invert(1);
+  opacity: 0.6;
+}
+
+html[data-cfb] .SumoSelect.open > .CaptionCont,
+html[data-cfb] .SumoSelect:focus > .CaptionCont,
+html[data-cfb] .SumoSelect:hover > .CaptionCont {
+  border-color: var(--cfb-accent) !important;
+  box-shadow: 0 0 0 3px var(--cfb-accent-soft) !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper {
+  background: var(--cfb-surface) !important;
+  border: 1px solid var(--cfb-border-strong) !important;
+  border-radius: var(--cfb-radius-sm) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  overflow: hidden;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper > .options li.opt,
+html[data-cfb] .SumoSelect .select-all {
+  color: var(--cfb-text) !important;
+  border-bottom-color: var(--cfb-border) !important;
+  background: transparent !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper > .options li.opt:hover,
+html[data-cfb] .SumoSelect .select-all:hover {
+  background: var(--cfb-surface-3) !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper.multiple > .options li.opt span i,
+html[data-cfb] .SumoSelect .select-all > span i {
+  background-color: var(--cfb-surface) !important;
+  border-color: var(--cfb-border-strong) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper.multiple > .options li.opt.selected span i,
+html[data-cfb] .SumoSelect .select-all.selected > span i {
+  background-color: var(--cfb-accent) !important;
+  border-color: var(--cfb-accent) !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper > .MultiControls {
+  background: var(--cfb-surface-2) !important;
+  border-top-color: var(--cfb-border) !important;
+}
+
+html[data-cfb] .SumoSelect > .optWrapper > .MultiControls > p {
+  color: var(--cfb-text) !important;
+}
+
+html[data-cfb] .setting-name,
+html[data-cfb] .setting-name label {
+  color: var(--cfb-muted) !important;
+  font-weight: 550;
+}
+
+/* "Register »" call to action */
+html[data-cfb] a.red-link {
+  display: inline-block;
+  padding: 2px 10px !important;
+  border-radius: 999px;
+  background: var(--cfb-accent) !important;
+  color: var(--cfb-on-accent) !important;
+  font-weight: 600;
+  text-decoration: none !important;
 }
 
 /* Ace editor */
@@ -1145,9 +1247,83 @@ html[data-cfb] ol.linenums li {
 
 /* ------------------------------------------------------------------ blog / comments */
 
+html[data-cfb] .topic {
+  background: var(--cfb-surface);
+  border: 1px solid var(--cfb-border);
+  border-radius: var(--cfb-radius);
+  box-shadow: var(--cfb-shadow);
+  padding: 20px 24px 14px;
+  margin-bottom: 18px !important;
+}
+
+html[data-cfb] .bottom-links {
+  background: var(--cfb-surface-2) !important;
+  border-top: 1px solid var(--cfb-border);
+  padding: 4px 6px;
+}
+
 html[data-cfb] .topic .title a,
 html[data-cfb] .topic .title p {
   color: var(--cfb-text) !important;
+  text-decoration: none !important;
+}
+
+html[data-cfb] .topic .title p {
+  font-size: 2.2rem !important;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px !important;
+}
+
+html[data-cfb] .topic .info {
+  color: var(--cfb-muted);
+  margin-bottom: 14px;
+}
+
+html[data-cfb] .topic .content {
+  border-left: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+html[data-cfb] .ttypography h1,
+html[data-cfb] .ttypography h2,
+html[data-cfb] .ttypography h3,
+html[data-cfb] .ttypography h4,
+html[data-cfb] .ttypography h5,
+html[data-cfb] .ttypography h6 {
+  color: var(--cfb-text) !important;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+html[data-cfb] .ttypography blockquote {
+  border-left: 3px solid var(--cfb-accent) !important;
+  background: var(--cfb-surface-2);
+  border-radius: 0 var(--cfb-radius-sm) var(--cfb-radius-sm) 0;
+  padding: 8px 14px;
+  color: var(--cfb-text);
+}
+
+html[data-cfb] .ttypography table th,
+html[data-cfb] .ttypography table td {
+  border-color: var(--cfb-border) !important;
+}
+
+html[data-cfb] .spoiler {
+  border: 1px solid var(--cfb-border);
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-2);
+}
+
+html[data-cfb] .spoiler-title {
+  color: var(--cfb-link) !important;
+  border-bottom-color: currentColor !important;
+}
+
+html[data-cfb] .spoiler-content {
+  background: transparent !important;
+  border-color: var(--cfb-border) !important;
 }
 
 html[data-cfb] .comment-table,
@@ -1168,6 +1344,15 @@ html[data-cfb] .info {
 html[data-cfb] .avatar img,
 html[data-cfb] .title-photo img {
   border-radius: var(--cfb-radius-sm);
+}
+
+html[data-cfb] .title-photo > div {
+  border-color: var(--cfb-border) !important;
+  border-radius: var(--cfb-radius-sm);
+}
+
+html[data-cfb] .userbox {
+  border-color: var(--cfb-border) !important;
 }
 
 /* ------------------------------------------------------------------ popups & alerts */
@@ -1264,6 +1449,7 @@ html[data-cfb][data-cfb-theme="dark"] hr {
 }
 
 /* Rating colors tuned for a dark background. */
+html[data-cfb][data-cfb-theme="dark"] .user-4000,
 html[data-cfb][data-cfb-theme="dark"] .user-black,
 html[data-cfb][data-cfb-theme="dark"] .user-legendary::first-letter {
   color: #f0f2f5 !important;
