@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>ForcesBetter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="head">
+      <img src="../icons/icon48.png" alt="" width="28" height="28" />
+      <div class="head-text">
+        <h1>ForcesBetter</h1>
+        <p>Codeforces, но приятнее</p>
+      </div>
+      <label class="switch" title="Включить улучшения">
+        <input type="checkbox" id="enabled" />
+        <span></span>
+      </label>
+    </header>
+
+    <main id="settings">
+      <section>
+        <h2>Тема</h2>
+        <div class="segmented" id="theme">
+          <button type="button" data-value="light">Светлая</button>
+          <button type="button" data-value="dark">Тёмная</button>
+          <button type="button" data-value="system">Авто</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Акцентный цвет</h2>
+        <div class="swatches" id="accent">
+          <button type="button" data-value="#2dd4bf" style="--c: #2dd4bf" title="Бирюзовый"></button>
+          <button type="button" data-value="#3b82f6" style="--c: #3b82f6" title="Синий"></button>
+          <button type="button" data-value="#8b5cf6" style="--c: #8b5cf6" title="Фиолетовый"></button>
+          <button type="button" data-value="#10b981" style="--c: #10b981" title="Зелёный"></button>
+          <button type="button" data-value="#f59e0b" style="--c: #f59e0b" title="Янтарный"></button>
+          <button type="button" data-value="#ef4444" style="--c: #ef4444" title="Красный"></button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Скругление углов <output id="radius-value"></output></h2>
+        <input type="range" id="radius" min="0" max="20" step="1" />
+      </section>
+
+      <section class="toggles">
+        <label class="row">
+          <span>Современный шрифт</span>
+          <span class="switch small">
+            <input type="checkbox" id="font" />
+            <span></span>
+          </span>
+        </label>
+        <label class="row">
+          <span>Широкая страница</span>
+          <span class="switch small">
+            <input type="checkbox" id="wide" />
+            <span></span>
+          </span>
+        </label>
+      </section>
+    </main>
+
+    <footer>
+      <button type="button" id="reset" class="link">Сбросить настройки</button>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

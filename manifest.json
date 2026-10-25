@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "ForcesBetter — Codeforces, но приятнее",
+  "short_name": "ForcesBetter",
+  "version": "0.1.0",
+  "description": "Тёмная тема, скруглённые углы, аккуратные отступы и современный шрифт для Codeforces.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "ForcesBetter",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*.woff2"],
+      "matches": ["*://codeforces.com/*", "*://*.codeforces.com/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://codeforces.com/*", "*://*.codeforces.com/*"],
+      "css": ["src/styles.css"],
+      "js": ["src/content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}
