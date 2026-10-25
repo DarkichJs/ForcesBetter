@@ -492,7 +492,15 @@ html[data-cfb] .turnstile-container {
 
 html[data-cfb] .turnstile-container .cf-turnstile {
   border-radius: var(--cfb-radius-sm);
-  overflow: hidden;
+}
+
+/* Codeforces bug: on problem pages the hidden tag forms have an <input name="tagName">,
+   which shadows form.tagName and crashes Turnstile's script. The sidebar widget then
+   stays an empty white frame (invisible on the original white theme). In the dark
+   theme it is dimmed so it doesn't glare; nothing about the check is changed. */
+html[data-cfb][data-cfb-theme="dark"] body:has(form > input[name="tagName"]) #sidebar .cf-turnstile {
+  filter: invert(0.91) hue-rotate(180deg);
+  opacity: 0.6;
 }
 
 html[data-cfb] select {
@@ -572,8 +580,15 @@ html[data-cfb] #sidebar .submitForm select {
   box-sizing: border-box;
 }
 
+html[data-cfb] #sidebar .submitForm div:has(> input[type="submit"]) {
+  display: block !important;
+}
+
 html[data-cfb] #sidebar .submitForm input[type="submit"] {
   width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
   padding: 8px 14px !important;
   margin-bottom: 6px;
 }
