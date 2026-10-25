@@ -968,17 +968,16 @@ html[data-cfb] .sample-test pre {
   overflow-x: auto;
 }
 
-html[data-cfb] .sample-test .test-example-line-even {
+/* Codeforces tags each test case's lines odd/even. Instead of zebra bands,
+   mark every other test case with a thin accent bar on the left. */
+html[data-cfb] .sample-test .test-example-line {
+  margin: 0 -14px;
+  padding: 0 14px;
   background: transparent !important;
 }
 
 html[data-cfb] .sample-test .test-example-line-odd {
-  background: var(--cfb-line-alt) !important;
-}
-
-html[data-cfb] .sample-test .test-example-line {
-  margin: 0 -14px;
-  padding: 0 14px;
+  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--cfb-accent) 55%, transparent);
 }
 
 /* Copy button becomes an icon. */
