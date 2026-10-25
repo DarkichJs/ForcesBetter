@@ -1,4 +1,3 @@
-// Keep in sync with DEFAULTS in src/content.js.
 const DEFAULTS = {
   enabled: true,
   theme: "system",

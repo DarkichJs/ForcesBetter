@@ -1,13 +1,10 @@
-// ForcesBetter content script.
-// Runs at document_start: applies cached settings synchronously (no flash),
-// then syncs with chrome.storage and injects the header theme toggle.
 (() => {
   const DEFAULTS = {
     enabled: true,
-    theme: "system", // "light" | "dark" | "system"
+    theme: "system",
     radius: 12,
     accent: "#2dd4bf",
-    font: "modern", // "modern" | "original"
+    font: "modern",
     wide: false,
   };
   const CACHE_KEY = "forcesBetter:settings";
@@ -57,7 +54,6 @@
     updateToggle();
   }
 
-  // Dark text on light accents (teal, amber), white on saturated ones (blue, violet).
   function onAccent(hex) {
     const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
     const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
@@ -70,8 +66,6 @@
     apply();
   }
 
-  // --- Header toggle -------------------------------------------------------
-
   let toggle = null;
 
   function updateToggle() {
@@ -79,7 +73,7 @@
     toggle.hidden = !settings.enabled;
     const dark = resolvedTheme() === "dark";
     toggle.textContent = dark ? "☀" : "☾";
-    toggle.title = dark ? "Светлая тема" : "Тёмная тема";
+    toggle.title = dark ? "Light theme" : "Dark theme";
   }
 
   function injectToggle() {
@@ -98,15 +92,12 @@
     updateToggle();
   }
 
-  // Limits are shown as icons; keep the hidden labels available as tooltips.
   function labelLimits() {
     for (const label of document.querySelectorAll(".problem-statement .header .property-title")) {
       label.parentElement.title = label.textContent.trim();
     }
   }
 
-  // Text tweaks that CSS can't do: "→ Caption" arrows, lowercase sample titles.
-  // Both are cosmetic and harmless to keep when the extension is switched off.
   function tidyText() {
     for (const caption of document.querySelectorAll(".caption.titled")) {
       const node = caption.firstChild;
@@ -119,9 +110,6 @@
       }
     }
   }
-
-  // --- Difficulty levels (LeetCode-style) ---------------------------------
-  // Codeforces measures difficulty by problem rating (800–3500).
 
   const LEVELS = [
     { id: "easy", label: "Easy", min: 800, max: 1200 },
@@ -138,11 +126,10 @@
     const el = document.createElement("span");
     el.className = `cfb-diff cfb-diff--${level.id}`;
     el.textContent = level.label;
-    el.title = `Рейтинг задачи: ${rating}`;
+    el.title = `Problem rating: ${rating}`;
     return el;
   }
 
-  // Problemset table: a level badge next to each title, colored rating column.
   function badgeProblemList() {
     for (const cell of document.querySelectorAll("table.problems .ProblemRating")) {
       const rating = parseInt(cell.textContent, 10);
@@ -155,7 +142,6 @@
     }
   }
 
-  // "Фильтр задач": Easy / Medium / Hard presets for the rating range inputs.
   function addLevelFilter() {
     const form = document.querySelector("form:has(input[name=minDifficulty])");
     if (!form || form.querySelector(".cfb-diff-filter")) return;
@@ -182,7 +168,6 @@
     form.prepend(bar);
   }
 
-  // Problem page: the rating lives in the "*1500" tag of the sidebar.
   function badgeProblemHeader() {
     const header = document.querySelector(".problem-statement .header");
     if (!header || header.querySelector(".cfb-diff")) return;
@@ -194,8 +179,6 @@
     header.querySelector(".title")?.after(el);
   }
 
-  // Sample input: mark where each test case starts/ends and highlight a whole
-  // case on hover. Lines carry Codeforces' "test-example-line-<N>" classes.
   function groupSampleLines() {
     const caseOf = (line) => [...line.classList].find((c) => /^test-example-line-\d+$/.test(c));
     for (const pre of document.querySelectorAll(".sample-test pre")) {
@@ -225,9 +208,6 @@
     if (settings.enabled) tidyText();
   }
 
-  // Cloudflare Turnstile renders light unless told otherwise. Its documented
-  // data-theme option has to be set before the widget renders, so watch the
-  // DOM while the page is loading. Only the widget's look changes.
   function themeTurnstile(scope) {
     if (!settings.enabled || resolvedTheme() !== "dark") return;
     for (const widget of scope.querySelectorAll(".cf-turnstile:not([data-theme])")) {
@@ -240,8 +220,6 @@
     observer.observe(root, { childList: true, subtree: true });
     window.addEventListener("load", () => observer.disconnect(), { once: true });
   }
-
-  // --- Wiring --------------------------------------------------------------
 
   apply();
   watchTurnstile();

@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "ForcesBetter — Codeforces, но приятнее",
+  "name": "ForcesBetter — Codeforces, but nicer",
   "short_name": "ForcesBetter",
-  "version": "0.1.0",
-  "description": "Тёмная тема, скруглённые углы, аккуратные отступы и современный шрифт для Codeforces.",
+  "version": "1.0.0",
+  "description": "Dark theme, rounded corners, cleaner spacing, a modern font and Easy/Medium/Hard difficulty tags for Codeforces.",
+  "minimum_chrome_version": "111",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

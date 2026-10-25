@@ -1,1 +1,8 @@
 .DS_Store
+dist/
+PLAN.md
+CLAUDE.md
+AGENTS.md
+.claude/
+graphify-out/
+dev/
