@@ -126,9 +126,26 @@
     if (settings.enabled) tidyText();
   }
 
+  // Cloudflare Turnstile renders light unless told otherwise. Its documented
+  // data-theme option has to be set before the widget renders, so watch the
+  // DOM while the page is loading. Only the widget's look changes.
+  function themeTurnstile(scope) {
+    if (!settings.enabled || resolvedTheme() !== "dark") return;
+    for (const widget of scope.querySelectorAll(".cf-turnstile:not([data-theme])")) {
+      widget.setAttribute("data-theme", "dark");
+    }
+  }
+
+  function watchTurnstile() {
+    const observer = new MutationObserver(() => themeTurnstile(document));
+    observer.observe(root, { childList: true, subtree: true });
+    window.addEventListener("load", () => observer.disconnect(), { once: true });
+  }
+
   // --- Wiring --------------------------------------------------------------
 
   apply();
+  watchTurnstile();
 
   darkQuery.addEventListener("change", () => {
     if (settings.theme === "system") apply();

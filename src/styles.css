@@ -409,7 +409,7 @@ html[data-cfb] input[type="email"],
 html[data-cfb] input:not([type]),
 html[data-cfb] input.search,
 html[data-cfb] select,
-html[data-cfb] textarea {
+html[data-cfb] textarea:not(.ace_text-input) {
   background: var(--cfb-surface) !important;
   color: var(--cfb-text) !important;
   border: 1px solid var(--cfb-border-strong) !important;
@@ -458,25 +458,261 @@ html[data-cfb] button:not(.cfb-theme-toggle):hover {
 
 /* Primary actions: "Отослать" / "Submit". */
 html[data-cfb] .submitForm input[type="submit"],
-html[data-cfb] #sidebar .submitForm input[type="submit"] {
+html[data-cfb] .submit-form input[type="submit"],
+html[data-cfb] .submitFrameForm input[type="submit"],
+html[data-cfb] form.customtest input[type="submit"] {
   background: var(--cfb-accent) !important;
   border-color: var(--cfb-accent) !important;
   color: var(--cfb-on-accent) !important;
   font-weight: 600;
 }
 
-html[data-cfb] .submitForm input[type="submit"]:hover {
+html[data-cfb] .submitForm input[type="submit"]:hover,
+html[data-cfb] .submit-form input[type="submit"]:hover,
+html[data-cfb] .submitFrameForm input[type="submit"]:hover,
+html[data-cfb] form.customtest input[type="submit"]:hover {
   filter: brightness(1.08);
 }
 
-/* Cloudflare Turnstile is a cross-origin iframe; only its frame can be shaped. */
+/* Cloudflare Turnstile is a cross-origin iframe (it follows the OS theme by itself);
+   only its frame can be shaped. */
+html[data-cfb] .turnstile-container {
+  display: flex;
+  justify-content: center;
+}
+
 html[data-cfb] .turnstile-container .cf-turnstile {
   border-radius: var(--cfb-radius-sm);
   overflow: hidden;
 }
 
+html[data-cfb] select {
+  padding: 5px 8px !important;
+  min-height: 30px;
+}
+
+html[data-cfb] input[type="file"] {
+  color: var(--cfb-muted);
+  font-size: 1.2rem;
+  max-width: 100%;
+}
+
+html[data-cfb] input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 5px 12px;
+  border: 1px solid var(--cfb-border-strong);
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-3);
+  color: var(--cfb-text);
+  font: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+html[data-cfb] input[type="file"]::file-selector-button:hover {
+  background: var(--cfb-border-strong);
+}
+
+html[data-cfb] input[type="checkbox"],
+html[data-cfb] input[type="radio"] {
+  accent-color: var(--cfb-accent);
+}
+
 html[data-cfb] .table-form td {
-  padding: 4px 6px;
+  padding: 6px 8px;
+}
+
+html[data-cfb] .table-form td.field-name {
+  color: var(--cfb-muted);
+  vertical-align: top;
+  padding-top: 11px;
+}
+
+/* Sidebar submit box: stacked label/field rows, full-width controls. */
+html[data-cfb] #sidebar .submitForm .table-form,
+html[data-cfb] #sidebar .submitForm .table-form tbody,
+html[data-cfb] #sidebar .submitForm .table-form tr,
+html[data-cfb] #sidebar .submitForm .table-form td {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+}
+
+html[data-cfb] #sidebar .submitForm .table-form {
+  padding: 6px 8px 4px;
+}
+
+html[data-cfb] #sidebar .submitForm .table-form td {
+  padding: 3px 4px !important;
+  text-align: left !important;
+}
+
+html[data-cfb] #sidebar .submitForm .table-form td.field {
+  padding-top: 8px !important;
+  color: var(--cfb-muted);
+  font-size: 1.15rem;
+}
+
+html[data-cfb] #sidebar .submitForm .table-form td:empty {
+  display: none;
+}
+
+html[data-cfb] #sidebar .submitForm select {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+html[data-cfb] #sidebar .submitForm input[type="submit"] {
+  width: 100% !important;
+  padding: 8px 14px !important;
+  margin-bottom: 6px;
+}
+
+/* Submit / custom test pages: the form becomes a card. */
+html[data-cfb] #pageContent > form.submit-form,
+html[data-cfb] #pageContent > form.customtest,
+html[data-cfb] #pageContent > form.submitForm {
+  background: var(--cfb-surface);
+  border: 1px solid var(--cfb-border);
+  border-radius: var(--cfb-radius);
+  box-shadow: var(--cfb-shadow);
+  padding: 18px 20px;
+}
+
+html[data-cfb] #pageContent > form.submit-form .table-form {
+  width: 100% !important;
+}
+
+html[data-cfb] #pageContent > form.submit-form .table-form td.field-name {
+  width: 130px;
+  text-align: left !important;
+}
+
+html[data-cfb] #pageContent > div:has(+ form.submit-form) {
+  margin: 0 0 12px !important;
+  text-align: left !important;
+  font-size: 2.2rem !important;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--cfb-text);
+}
+
+html[data-cfb] #pageContent > form.submit-form select,
+html[data-cfb] #pageContent > form.submit-form input[type="text"] {
+  width: 320px !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+html[data-cfb] #pageContent > form.submit-form input[type="submit"] {
+  padding: 8px 28px !important;
+}
+
+html[data-cfb] form.customtest textarea:not(.ace_text-input) {
+  font-family: var(--cfb-mono) !important;
+  font-size: 1.3rem;
+  padding: 8px 10px;
+  box-sizing: border-box;
+}
+
+html[data-cfb] form.customtest input[type="submit"] {
+  padding: 8px 28px !important;
+}
+
+/* Ace editor */
+html[data-cfb] .ace_editor {
+  border: 1px solid var(--cfb-border-strong) !important;
+  border-radius: var(--cfb-radius-sm);
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome {
+  background: #111215 !important;
+  color: #e4e4e7 !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_gutter {
+  background: #16171b !important;
+  color: #5c5f66 !important;
+  border-right: 1px solid var(--cfb-border);
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_gutter-active-line,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_marker-layer .ace_active-line {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_gutter-active-line {
+  color: #a1a1aa !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_cursor {
+  color: var(--cfb-accent) !important;
+  border-left-color: var(--cfb-accent) !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_marker-layer .ace_selection {
+  background: color-mix(in srgb, var(--cfb-accent) 28%, transparent) !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_marker-layer .ace_selected-word,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_marker-layer .ace_bracket {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_print-margin {
+  background: var(--cfb-border) !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_indent-guide {
+  background: none !important;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_keyword,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_storage,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_meta.ace_tag {
+  color: #ff7b72 !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_string {
+  color: #a5d6ff !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_comment {
+  color: #7d8590 !important;
+  font-style: italic;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_constant,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_constant.ace_numeric,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_constant.ace_language {
+  color: #79c0ff !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_support,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_entity.ace_name.ace_function,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_support.ace_function {
+  color: #d2a8ff !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_variable,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_identifier,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_paren,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_punctuation,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_keyword.ace_operator {
+  color: #e4e4e7 !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_type,
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_support.ace_type {
+  color: #ffa657 !important;
+}
+
+html[data-cfb][data-cfb-theme="dark"] .ace-chrome .ace_fold {
+  background-color: var(--cfb-accent) !important;
+  border-color: var(--cfb-text) !important;
 }
 
 /* ------------------------------------------------------------------ problem statement */
@@ -816,6 +1052,83 @@ html[data-cfb] pre.prettyprint {
   padding: 10px 12px !important;
 }
 
+/* Any other preformatted block: submission source, test protocols, judge output. */
+html[data-cfb] pre {
+  background: var(--cfb-surface-2) !important;
+  color: var(--cfb-text) !important;
+  border: 1px solid var(--cfb-border) !important;
+  border-radius: var(--cfb-radius-sm);
+  padding: 8px 10px;
+}
+
+html[data-cfb] .sample-test pre,
+html[data-cfb] .ace_editor pre {
+  border: none !important;
+  border-radius: 0;
+}
+
+html[data-cfb] #program-source-text-copy,
+html[data-cfb] .source-popup .copy-button,
+html[data-cfb] [id^="program-source-text-copy"] {
+  color: var(--cfb-link) !important;
+  cursor: pointer;
+}
+
+html[data-cfb] .source-popup-header {
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+html[data-cfb] #facebox .popup {
+  padding: 6px;
+}
+
+html[data-cfb] #facebox .close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--cfb-surface-3);
+  color: var(--cfb-muted) !important;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+html[data-cfb] #facebox .close::before {
+  content: "×";
+  font-size: 20px;
+  line-height: 1;
+}
+
+html[data-cfb] #facebox .close:hover {
+  background: var(--cfb-border-strong);
+  color: var(--cfb-text) !important;
+}
+
+html[data-cfb] #facebox .close img {
+  display: none !important;
+}
+
+html[data-cfb] .copier-small {
+  padding: 1px 8px !important;
+  border: 1px solid var(--cfb-border-strong) !important;
+  border-radius: 999px !important;
+  background: var(--cfb-surface) !important;
+  color: var(--cfb-muted) !important;
+  cursor: pointer;
+}
+
+html[data-cfb] .copier-small:hover {
+  color: var(--cfb-text) !important;
+}
+
+html[data-cfb] #facebox_overlay {
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(2px);
+}
+
 html[data-cfb] .ttypography code {
   padding: 1px 5px;
 }
@@ -1036,4 +1349,9 @@ html[data-cfb][data-cfb-theme="dark"] ::-webkit-scrollbar-thumb {
   background: var(--cfb-surface-3);
   border: 2px solid var(--cfb-bg);
   border-radius: 999px;
+}
+
+html[data-cfb][data-cfb-theme="dark"] ::-webkit-scrollbar-corner,
+html[data-cfb][data-cfb-theme="dark"] ::-webkit-resizer {
+  background: transparent;
 }
