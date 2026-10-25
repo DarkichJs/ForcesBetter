@@ -120,9 +120,86 @@
     }
   }
 
+  // --- Difficulty levels (LeetCode-style) ---------------------------------
+  // Codeforces measures difficulty by problem rating (800–3500).
+
+  const LEVELS = [
+    { id: "easy", label: "Easy", min: 800, max: 1200 },
+    { id: "medium", label: "Medium", min: 1300, max: 1900 },
+    { id: "hard", label: "Hard", min: 2000, max: 3500 },
+  ];
+
+  function levelOf(rating) {
+    return LEVELS.find((level) => rating <= level.max) ?? LEVELS[LEVELS.length - 1];
+  }
+
+  function badge(rating) {
+    const level = levelOf(rating);
+    const el = document.createElement("span");
+    el.className = `cfb-diff cfb-diff--${level.id}`;
+    el.textContent = level.label;
+    el.title = `Рейтинг задачи: ${rating}`;
+    return el;
+  }
+
+  // Problemset table: a level badge next to each title, colored rating column.
+  function badgeProblemList() {
+    for (const cell of document.querySelectorAll("table.problems .ProblemRating")) {
+      const rating = parseInt(cell.textContent, 10);
+      if (!rating) continue;
+      const row = cell.closest("tr");
+      const title = row?.cells[1]?.querySelector("div > a");
+      if (!title || title.parentElement.querySelector(".cfb-diff")) continue;
+      cell.classList.add(`cfb-rating--${levelOf(rating).id}`);
+      title.after(badge(rating));
+    }
+  }
+
+  // "Фильтр задач": Easy / Medium / Hard presets for the rating range inputs.
+  function addLevelFilter() {
+    const form = document.querySelector("form:has(input[name=minDifficulty])");
+    if (!form || form.querySelector(".cfb-diff-filter")) return;
+    const min = form.querySelector("input[name=minDifficulty]");
+    const max = form.querySelector("input[name=maxDifficulty]");
+
+    const bar = document.createElement("div");
+    bar.className = "cfb-diff-filter";
+    for (const level of LEVELS) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `cfb-diff cfb-diff--${level.id}`;
+      button.textContent = level.label;
+      button.title = `${level.min}–${level.max}`;
+      const active = min.value == level.min && max.value == level.max;
+      button.setAttribute("aria-pressed", String(active));
+      button.addEventListener("click", () => {
+        min.value = active ? "" : level.min;
+        max.value = active ? "" : level.max;
+        form.requestSubmit(form.querySelector("input[type=submit]") ?? undefined);
+      });
+      bar.append(button);
+    }
+    form.prepend(bar);
+  }
+
+  // Problem page: the rating lives in the "*1500" tag of the sidebar.
+  function badgeProblemHeader() {
+    const header = document.querySelector(".problem-statement .header");
+    if (!header || header.querySelector(".cfb-diff")) return;
+    const tag = [...document.querySelectorAll(".tag-box")].find((t) => /^\*\d+$/.test(t.textContent.trim()));
+    if (!tag) return;
+    const rating = parseInt(tag.textContent.trim().slice(1), 10);
+    const el = badge(rating);
+    el.textContent = `${el.textContent} · ${rating}`;
+    header.querySelector(".title")?.after(el);
+  }
+
   function onReady() {
     injectToggle();
     labelLimits();
+    badgeProblemList();
+    addLevelFilter();
+    badgeProblemHeader();
     if (settings.enabled) tidyText();
   }
 

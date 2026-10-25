@@ -1541,3 +1541,132 @@ html[data-cfb][data-cfb-theme="dark"] ::-webkit-scrollbar-corner,
 html[data-cfb][data-cfb-theme="dark"] ::-webkit-resizer {
   background: transparent;
 }
+
+/* ------------------------------------------------------------------ difficulty levels */
+
+html[data-cfb] {
+  --cfb-easy: #00a38f;
+  --cfb-medium: #d99a00;
+  --cfb-hard: #e5294f;
+}
+
+html[data-cfb][data-cfb-theme="dark"] {
+  --cfb-easy: #2dd4bf;
+  --cfb-medium: #ffc01e;
+  --cfb-hard: #ff4d6d;
+}
+
+html:not([data-cfb]) .cfb-diff,
+html:not([data-cfb]) .cfb-diff-filter {
+  display: none !important;
+}
+
+html[data-cfb] .cfb-diff {
+  --cfb-level: var(--cfb-muted);
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cfb-level) 15%, transparent);
+  color: var(--cfb-level);
+  font-family: var(--cfb-font);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.6;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+html[data-cfb] .cfb-diff--easy {
+  --cfb-level: var(--cfb-easy);
+}
+
+html[data-cfb] .cfb-diff--medium {
+  --cfb-level: var(--cfb-medium);
+}
+
+html[data-cfb] .cfb-diff--hard {
+  --cfb-level: var(--cfb-hard);
+}
+
+html[data-cfb] .cfb-rating--easy {
+  color: var(--cfb-easy) !important;
+}
+
+html[data-cfb] .cfb-rating--medium {
+  color: var(--cfb-medium) !important;
+}
+
+html[data-cfb] .cfb-rating--hard {
+  color: var(--cfb-hard) !important;
+}
+
+/* Badge on the problem page sits at the start of the limits row. */
+html[data-cfb] .problem-statement .header > .cfb-diff {
+  margin: 0 14px 4px 0;
+  font-size: 1.2rem;
+  padding: 2px 10px;
+}
+
+/* Filter presets */
+html[data-cfb] .cfb-diff-filter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+html[data-cfb] .cfb-diff-filter .cfb-diff {
+  justify-content: center;
+  margin: 0;
+  padding: 6px 0 !important;
+  border: 1px solid color-mix(in srgb, var(--cfb-level) 35%, transparent) !important;
+  border-radius: var(--cfb-radius-sm) !important;
+  background: color-mix(in srgb, var(--cfb-level) 10%, transparent) !important;
+  color: var(--cfb-level) !important;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+html[data-cfb] .cfb-diff-filter .cfb-diff:hover {
+  background: color-mix(in srgb, var(--cfb-level) 22%, transparent) !important;
+}
+
+html[data-cfb] .cfb-diff-filter .cfb-diff:active {
+  transform: scale(0.97);
+}
+
+html[data-cfb] .cfb-diff-filter .cfb-diff[aria-pressed="true"] {
+  background: var(--cfb-level) !important;
+  border-color: var(--cfb-level) !important;
+  color: var(--cfb-bg) !important;
+}
+
+/* Tidy the rating-range row under the presets. */
+html[data-cfb] ._FilterByTagsFrame_difficulty label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--cfb-muted);
+}
+
+html[data-cfb] ._FilterByTagsFrame_difficulty label > span {
+  float: none !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+html[data-cfb] ._FilterByTagsFrame_difficulty input {
+  width: 64px !important;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+html[data-cfb] ._FilterByTagsFrame_button {
+  margin-top: 10px;
+  text-align: center;
+}
