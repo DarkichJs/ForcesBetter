@@ -6,6 +6,7 @@
     accent: "#2dd4bf",
     font: "modern",
     wide: false,
+    editor: true,
   };
   const CACHE_KEY = "forcesBetter:settings";
   const root = document.documentElement;
@@ -34,7 +35,7 @@
 
   function apply() {
     if (!settings.enabled) {
-      for (const attr of ["data-cfb", "data-cfb-theme", "data-cfb-font", "data-cfb-wide"]) {
+      for (const attr of ["data-cfb", "data-cfb-theme", "data-cfb-font", "data-cfb-wide", "data-cfb-editor"]) {
         root.removeAttribute(attr);
       }
       root.style.removeProperty("--cfb-radius");
@@ -48,6 +49,8 @@
     root.setAttribute("data-cfb-font", settings.font);
     if (settings.wide) root.setAttribute("data-cfb-wide", "");
     else root.removeAttribute("data-cfb-wide");
+    if (settings.editor) root.setAttribute("data-cfb-editor", "");
+    else root.removeAttribute("data-cfb-editor");
     root.style.setProperty("--cfb-radius", `${Number(settings.radius) || 0}px`);
     root.style.setProperty("--cfb-accent", settings.accent);
     root.style.setProperty("--cfb-on-accent", onAccent(settings.accent));
@@ -88,7 +91,9 @@
       update({ theme });
       chrome.storage.sync.set({ theme });
     });
-    host.prepend(toggle);
+    const actions = host.querySelector(".cfb-header-actions");
+    if (actions) actions.append(toggle);
+    else host.prepend(toggle);
     updateToggle();
   }
 

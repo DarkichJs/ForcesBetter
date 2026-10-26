@@ -5,6 +5,7 @@ const DEFAULTS = {
   accent: "#2dd4bf",
   font: "modern",
   wide: false,
+  editor: true,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -25,6 +26,7 @@ function render(s) {
   $("radius-value").textContent = `${s.radius}px`;
   $("font").checked = s.font === "modern";
   $("wide").checked = s.wide;
+  $("editor").checked = s.editor;
 }
 
 function save(patch) {
@@ -39,6 +41,7 @@ chrome.storage.onChanged.addListener((_, area) => {
 $("enabled").addEventListener("change", (e) => save({ enabled: e.target.checked }));
 $("font").addEventListener("change", (e) => save({ font: e.target.checked ? "modern" : "original" }));
 $("wide").addEventListener("change", (e) => save({ wide: e.target.checked }));
+$("editor").addEventListener("change", (e) => save({ editor: e.target.checked }));
 
 $("radius").addEventListener("input", (e) => {
   $("radius-value").textContent = `${e.target.value}px`;
