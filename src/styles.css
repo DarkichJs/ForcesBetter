@@ -2573,3 +2573,7 @@ html[data-cfb][data-cfb-no-footer] #body {
 html[data-cfb][data-cfb-no-footer] #body:has(.cfb-split) {
   padding-bottom: 0;
 }
+
+html[data-cfb] .cfb-pre.cfb-pre--muted {
+  color: var(--cfb-muted) !important;
+}

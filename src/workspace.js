@@ -204,7 +204,7 @@
         <textarea class="cfb-input" spellcheck="false" placeholder="stdin"></textarea>
       </div>
       <div class="cfb-view" data-view="output" hidden><div class="cfb-empty">Run the code to see its output.</div></div>
-      <div class="cfb-view" data-view="tests" hidden><div class="cfb-empty">Check your solution on all samples from the statement.</div></div>
+      <div class="cfb-view" data-view="tests" hidden></div>
     </section>`;
 
   const $ = (sel) => ws.querySelector(sel);
@@ -392,61 +392,76 @@
     }
   }
 
+  function sampleCards(list) {
+    const summary = el("div", { className: "cfb-tests-summary", textContent: `${list.length} ${list.length === 1 ? "sample" : "samples"} from the statement` });
+    const cards = list.map((sample, i) => {
+      const card = el("details", { className: "cfb-test is-pending", open: true });
+      card.innerHTML = `<summary><span class="cfb-test-dot"></span><strong>Sample ${i + 1}</strong><span class="cfb-test-verdict">Not run</span><span class="cfb-test-stat"></span></summary><div class="cfb-test-body"></div>`;
+      const grid = el("div", { className: "cfb-test-grid" });
+      for (const [title, text] of [["Input", sample.input], ["Expected", sample.output], ["Output", null]]) {
+        const col = el("div");
+        col.append(el("span", { className: "cfb-test-label", textContent: title }), text === null ? pre("—", "cfb-pre--muted cfb-test-out") : pre(text || " "));
+        grid.append(col);
+      }
+      card.querySelector(".cfb-test-body").append(grid);
+      return card;
+    });
+    return { summary, cards };
+  }
+
+  function renderSamples() {
+    const list = samples();
+    if (!list.length) {
+      views.tests.replaceChildren(el("div", { className: "cfb-empty", textContent: "This problem has no samples." }));
+      return list;
+    }
+    const { summary, cards } = sampleCards(list);
+    views.tests.replaceChildren(summary, ...cards);
+    return list;
+  }
+
   async function runTests() {
     if (busy) return;
     saveCode();
-    const list = samples();
     show("tests");
-    if (!list.length) {
-      views.tests.replaceChildren(el("div", { className: "cfb-empty", textContent: "This problem has no samples." }));
-      return;
-    }
-    const summary = el("div", { className: "cfb-tests-summary" });
-    const cards = list.map((sample, i) => {
-      const card = el("details", { className: "cfb-test is-pending" });
-      card.innerHTML = `<summary><span class="cfb-test-dot"></span><strong>Sample ${i + 1}</strong><span class="cfb-test-verdict">Waiting</span><span class="cfb-test-stat"></span></summary><div class="cfb-test-body"></div>`;
-      return card;
-    });
+    const list = samples();
+    if (!list.length) return renderSamples();
+    const { summary, cards } = sampleCards(list);
     views.tests.replaceChildren(summary, ...cards);
     setBusy(true, "Testing…");
     let passed = 0;
     try {
       for (let i = 0; i < list.length; i++) {
         const card = cards[i];
+        const verdict = card.querySelector(".cfb-test-verdict");
         card.className = "cfb-test is-running";
-        card.querySelector(".cfb-test-verdict").textContent = "Running…";
+        verdict.textContent = "Running…";
         summary.textContent = `Running sample ${i + 1} of ${list.length}…`;
         const r = await invoke(editor.getValue(), langSelect.value, list[i].input);
-        const body = card.querySelector(".cfb-test-body");
         if (isCompileError(r)) {
           card.className = "cfb-test is-bad";
-          card.open = true;
-          card.querySelector(".cfb-test-verdict").textContent = "Compilation error";
-          body.append(pre(r.output));
+          verdict.textContent = "Compilation error";
+          card.querySelector(".cfb-test-body").replaceChildren(pre(r.output));
           cards.slice(i + 1).forEach((c) => c.remove());
-          break;
+          summary.textContent = "Compilation error";
+          summary.classList.add("is-bad");
+          setBusy(false);
+          return;
         }
         const ok = isOk(r.verdict) && sameOutput(list[i].output, r.output);
         if (ok) passed++;
         card.className = `cfb-test ${ok ? "is-ok" : "is-bad"}`;
-        card.open = !ok;
-        card.querySelector(".cfb-test-verdict").textContent = ok ? "Passed" : isOk(r.verdict) ? "Wrong answer" : verdictLabel(r);
+        verdict.textContent = ok ? "Passed" : isOk(r.verdict) ? "Wrong answer" : verdictLabel(r);
         card.querySelector(".cfb-test-stat").textContent = r.stat;
-        const grid = el("div", { className: "cfb-test-grid" });
-        for (const [title, text] of [["Input", list[i].input], ["Expected", list[i].output], ["Output", r.output]]) {
-          const col = el("div");
-          col.append(el("span", { className: "cfb-test-label", textContent: title }), pre(text || " "));
-          grid.append(col);
-        }
-        body.append(grid);
+        card.querySelector(".cfb-test-out").replaceWith(pre(r.output || " "));
       }
       summary.textContent = `${passed} of ${list.length} samples passed`;
       summary.classList.toggle("is-ok", passed === list.length);
+      summary.classList.toggle("is-bad", passed !== list.length);
       setBusy(false, `${passed}/${list.length} passed`);
     } catch (error) {
       summary.textContent = error.message;
       summary.classList.add("is-bad");
-      cards.filter((c) => !/is-(ok|bad)/.test(c.className)).forEach((c) => c.remove());
       setBusy(false);
     }
   }
@@ -629,6 +644,7 @@
     });
   }
 
+  renderSamples();
   sync();
   new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor", "data-cfb-no-footer"] });
   window.addEventListener("resize", fit);
