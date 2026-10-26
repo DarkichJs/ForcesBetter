@@ -19,7 +19,7 @@ ForcesBetter gives Codeforces a calm, modern look and a code editor right next t
 
 CODE EDITOR
 • The statement on the left, an editor on the right, like on modern judges. Drag to resize.
-• Syntax highlighting and autocompletion for C++, Python, Java, Kotlin, Rust, Go and more.
+• Syntax highlighting and autocompletion for the language you pick.
 • Run your code on your own input, or check it against every sample in one click. Codeforces runs it through its Custom Invocation, so you get real verdicts, time and memory.
 • The Samples tab shows each input with its expected answer and your output.
 • Submit sends the code to the Codeforces submit form with the problem and language filled in.
@@ -39,7 +39,7 @@ SOLVING PROBLEMS
 • Samples side by side, test cases grouped and highlighted on hover.
 • A tidy submit form, an optional hidden footer.
 
-Works on problems, the archive, submit, status, standings, custom test, blogs, contests and profiles.
+The same look carries over to every page of the site.
 
 PRIVACY
 No analytics and no servers of our own. Code is only sent to codeforces.com, when you press Run, Samples or Submit. Settings are stored in Chrome sync storage. The only permission is "storage".
