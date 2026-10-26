@@ -1850,7 +1850,7 @@ html[data-cfb][data-cfb-editor] #body:has(.cfb-split) > #footer {
 html[data-cfb] .cfb-split {
   display: grid;
   grid-template-columns: minmax(0, var(--cfb-left, 50%)) 14px minmax(0, 1fr);
-  align-items: start;
+  height: var(--cfb-split-h, calc(100vh - 24px));
 }
 
 html[data-cfb] #body > .second-level-menu {
@@ -1859,8 +1859,23 @@ html[data-cfb] #body > .second-level-menu {
 
 html[data-cfb] .cfb-split-main {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cfb-border-strong) transparent;
+  scrollbar-gutter: stable;
+  margin-right: -6px;
+  padding-right: 6px;
+}
+
+html[data-cfb] .cfb-split-main > * {
+  flex: none;
+}
+
+html[data-cfb] .cfb-split-main > #sidebar > .roundbox:has(input[name="sourceFile"]) {
+  display: none !important;
 }
 
 html[data-cfb] .cfb-split-main > #pageContent {
@@ -1897,8 +1912,10 @@ html[data-cfb] .cfb-handle--col {
 
 html[data-cfb] .cfb-handle--col::after {
   content: "";
-  position: sticky;
-  top: 50vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: block;
   width: 4px;
   height: 36px;
@@ -1924,10 +1941,8 @@ html[data-cfb].cfb-dragging .cfb-handle--col * {
 }
 
 html[data-cfb] .cfb-ws {
-  position: sticky;
-  top: 12px;
-  height: var(--cfb-ws-h, calc(100vh - 24px));
-  min-height: 420px;
+  height: 100%;
+  min-height: 0;
   display: grid;
   grid-template-rows: minmax(0, 1fr) 14px var(--cfb-io-h, 240px);
   font-family: var(--cfb-font);
@@ -2525,8 +2540,17 @@ html[data-cfb] .cfb-handoff {
     display: none;
   }
 
+  html[data-cfb] .cfb-split {
+    height: auto;
+  }
+
+  html[data-cfb] .cfb-split-main {
+    overflow: visible;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
   html[data-cfb] .cfb-ws {
-    position: static;
     height: 80vh;
     margin-top: 14px;
   }

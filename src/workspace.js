@@ -613,14 +613,13 @@
     cancelAnimationFrame(fitFrame);
     fitFrame = requestAnimationFrame(() => {
       if (!split.isConnected) return;
-      const top = Math.max(12, split.getBoundingClientRect().top);
-      ws.style.setProperty("--cfb-ws-h", `${Math.round(window.innerHeight - top - 12)}px`);
+      const top = split.getBoundingClientRect().top + window.scrollY;
+      split.style.setProperty("--cfb-split-h", `${Math.max(480, Math.round(window.innerHeight - top - 12))}px`);
     });
   }
 
   sync();
   new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor"] });
   window.addEventListener("resize", fit);
-  window.addEventListener("scroll", fit, { passive: true });
   new ResizeObserver(() => editor.resize()).observe($(".cfb-ace"));
 })();
