@@ -71,6 +71,7 @@
       ],
       "js": [
         "vendor/ace/ace.js",
+        "src/ace-setup.js",
         "vendor/ace/ext-language_tools.js",
         "vendor/ace/ext-searchbox.js",
         "vendor/ace/mode-c_cpp.js",

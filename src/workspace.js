@@ -273,21 +273,31 @@
     return ext;
   }
 
+  let langPicked = !!saved?.lang && !!load("lang", null);
   let saveTimer = 0;
   editor.session.on("change", () => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveCode, 300);
   });
   function saveCode() {
-    store(`code:${problem.key}`, { lang: langSelect.value, source: editor.getValue() });
+    store(`code:${problem.key}`, { lang: langPicked ? langSelect.value : null, source: editor.getValue() });
   }
 
   function fillLanguages(langs, preferred) {
     langSelect.replaceChildren(...langs.map(({ id, name }) => el("option", { value: id, textContent: name })));
     const ids = new Set(langs.map((l) => l.id));
-    const pick = [saved?.lang, load("lang", null), preferred, langs.find((l) => /G\+\+2[03]/.test(l.name))?.id, langs[0]?.id].find((id) => id && ids.has(id));
+    const pick = [langPicked ? saved?.lang : null, load("lang", null), bestCpp(langs), preferred, langs[0]?.id].find((id) => id && ids.has(id));
     if (pick) langSelect.value = pick;
     setMode(langSelect.selectedOptions[0]?.textContent);
+  }
+
+  function bestCpp(langs) {
+    const score = ({ name }) => {
+      const m = name.match(/G\+\+\s*(\d+)/);
+      return m ? Number(m[1]) * 10 + (/64/.test(name) ? 1 : 0) : -1;
+    };
+    const best = langs.reduce((a, b) => (score(b) > score(a) ? b : a), langs[0]);
+    return best && score(best) >= 0 ? best.id : null;
   }
 
   const readSelect = (select) => ({
@@ -314,8 +324,7 @@
   loadLanguages().then((found) => {
     if (!found?.langs.length) return;
     store("langs", found.langs);
-    const current = langSelect.value;
-    fillLanguages(found.langs, current || found.preferred);
+    fillLanguages(found.langs, found.preferred);
   });
 
   editor.setValue(saved?.source ?? TEMPLATES[mode] ?? "", -1);
@@ -326,6 +335,7 @@
 
   langSelect.addEventListener("change", () => {
     const before = mode;
+    langPicked = true;
     store("lang", langSelect.value);
     setMode(langSelect.selectedOptions[0]?.textContent);
     const current = editor.getValue();
@@ -369,7 +379,7 @@
       const head = el("div", { className: `cfb-result-head ${good ? "is-ok" : "is-bad"}` });
       head.append(el("strong", { textContent: verdictLabel(r) }), el("span", { textContent: r.stat }));
       views.output.replaceChildren(head, pre(r.output || " "));
-      setBusy(false, r.stat);
+      setBusy(false);
     } catch (error) {
       views.output.replaceChildren(el("div", { className: "cfb-result-head is-bad" }, `<strong></strong>`));
       views.output.querySelector("strong").textContent = error.message;
