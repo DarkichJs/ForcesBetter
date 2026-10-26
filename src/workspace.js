@@ -224,17 +224,22 @@
 
   const sampleList = samples();
   const chips = $(".cfb-chips");
+  const markChip = () => {
+    for (const [i, chip] of [...chips.children].entries()) {
+      chip.classList.toggle("is-active", sampleList[i].input.trim() === inputArea.value.trim());
+    }
+  };
   sampleList.forEach((sample, i) => {
     const chip = el("button", { type: "button", className: "cfb-chip", textContent: `Sample ${i + 1}` });
     chip.addEventListener("click", () => {
       inputArea.value = sample.input;
-      saveInput();
+      markChip();
     });
     chips.append(chip);
   });
-  inputArea.value = load(`input:${problem.key}`, sampleList[0]?.input ?? "");
-  const saveInput = () => store(`input:${problem.key}`, inputArea.value);
-  inputArea.addEventListener("input", saveInput);
+  inputArea.value = sampleList[0]?.input ?? "";
+  markChip();
+  inputArea.addEventListener("input", markChip);
 
   ace.define("ace/theme/cfb", ["require", "exports"], (require, exports) => {
     exports.isDark = true;

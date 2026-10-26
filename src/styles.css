@@ -2291,6 +2291,12 @@ html[data-cfb] .cfb-ws .cfb-chip:hover {
   color: var(--cfb-accent) !important;
 }
 
+html[data-cfb] .cfb-ws .cfb-chip.is-active {
+  border-color: transparent !important;
+  background: var(--cfb-accent-soft) !important;
+  color: var(--cfb-accent) !important;
+}
+
 html[data-cfb] .cfb-ws .cfb-input {
   flex: 1;
   min-height: 60px;
