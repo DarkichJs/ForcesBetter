@@ -6,7 +6,7 @@
 
 <p align="center">
   Codeforces, but nicer.<br>
-  A dark theme, rounded cards, a modern font and LeetCode-style difficulty tags.
+  A code editor beside the statement, a dark theme, rounded cards and difficulty tags.
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/fidepiihjojmokebdpdolgheighhmpek"><img src="https://img.shields.io/chrome-web-store/v/fidepiihjojmokebdpdolgheighhmpek?label=chrome%20web%20store&color=2dd4bf" alt="Chrome Web Store"></a>
   <a href="https://github.com/DarkichJs/ForcesBetter/releases"><img src="https://img.shields.io/github/v/release/DarkichJs/ForcesBetter?label=release&color=2dd4bf" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/Chrome-111%2B-4285F4?logo=googlechrome&logoColor=white" alt="Chrome 111 and newer">
   <img src="https://img.shields.io/badge/manifest-v3-8b5cf6" alt="Manifest V3">
@@ -29,9 +30,18 @@
   <img src="store/screenshots/2-difficulty.png" width="49%" alt="Problem archive with Easy, Medium and Hard tags">
 </p>
 
-ForcesBetter restyles [Codeforces](https://codeforces.com) without changing how it works. Every page you use while solving gets the same calm look: problems, the archive, submit, status, standings, custom test, blogs, contests and profiles. No account, no tracking, no network requests of its own.
+ForcesBetter restyles [Codeforces](https://codeforces.com) and puts a code editor next to every problem. Every page you use while solving gets the same calm look: problems, the archive, submit, status, standings, custom test, blogs, contests and profiles. No tracking and no servers of its own.
 
 ## What it does
+
+### Code editor
+
+- **Statement left, editor right.** Like on modern judges. Drag the divider to resize; the statement scrolls on its own while the editor stays put.
+- **Run and check samples.** Run your code on your own input, or check it against every sample in one click (Ctrl/⌘+Enter, Ctrl/⌘+Shift+Enter). Codeforces runs it through its Custom Invocation in your session, so verdicts, time and memory are real.
+- **Samples tab.** Each sample's input and expected answer, then your output and a Passed / Wrong answer verdict.
+- **Submit.** Sends the code to the Codeforces submit form with the problem and language filled in.
+- **Editor.** Ace with syntax highlighting and autocompletion for C++, Python, Java, Kotlin, Rust, Go and more, templates, drafts saved per problem, open from file.
+- **Focus mode.** Optionally hide the site navigation and the footer for an eolymp-like layout.
 
 ### Look and feel
 
@@ -65,7 +75,7 @@ Everything is configured from the toolbar popup and follows you to other devices
 
 ## Install
 
-**Chrome Web Store.** Coming soon.
+**[Chrome Web Store](https://chromewebstore.google.com/detail/fidepiihjojmokebdpdolgheighhmpek)** (recommended, updates itself).
 
 **From a release.**
 
@@ -85,12 +95,13 @@ Unpacked installs don't update automatically. Download the new release and click
 
 ## Privacy
 
-ForcesBetter collects nothing. Settings are stored with `chrome.storage.sync` and never leave your browser except through Chrome's own sync. The extension only runs on `codeforces.com` and asks for no permissions beyond storage. See [PRIVACY.md](PRIVACY.md).
+ForcesBetter collects nothing. Your code is only sent to codeforces.com, when you press Run, Samples or Submit. Settings are stored with `chrome.storage.sync` and never leave your browser except through Chrome's own sync. The extension only runs on `codeforces.com` and asks for no permissions beyond storage. See [PRIVACY.md](PRIVACY.md).
 
 ## Development
 
 ```
-src/        content script and styles injected into codeforces.com
+src/        content scripts and styles injected into codeforces.com
+vendor/     Ace editor (BSD license)
 popup/      toolbar popup with the settings
 icons/      extension icons
 fonts/      Geist and Geist Mono (SIL OFL 1.1)
@@ -110,4 +121,4 @@ The workflow needs four repository secrets: `CWS_EXTENSION_ID`, `CWS_CLIENT_ID`,
 
 ## License
 
-[MIT](LICENSE). Geist fonts by Vercel under the [SIL Open Font License](fonts/OFL.txt). Not affiliated with Codeforces.
+[MIT](LICENSE). Geist fonts by Vercel under the [SIL Open Font License](fonts/OFL.txt). [Ace](https://ace.c9.io) under the [BSD license](vendor/ace/LICENSE). Not affiliated with Codeforces.

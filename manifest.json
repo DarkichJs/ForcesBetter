@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ForcesBetter — Codeforces, but nicer",
   "short_name": "ForcesBetter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dark theme, a code editor with sample tests beside the statement, rounded cards and Easy/Medium/Hard tags for Codeforces.",
   "minimum_chrome_version": "111",
   "icons": {

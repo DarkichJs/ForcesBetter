@@ -7,7 +7,7 @@ Paste these into the Developer Dashboard (https://chrome.google.com/webstore/dev
 **Name** (from manifest): ForcesBetter — Codeforces, but nicer
 
 **Summary** (from manifest, 132 chars max):
-Dark theme, rounded corners, cleaner spacing, a modern font and Easy/Medium/Hard difficulty tags for Codeforces.
+Dark theme, a code editor with sample tests beside the statement, rounded cards and Easy/Medium/Hard tags for Codeforces.
 
 **Category:** Developer Tools
 
@@ -15,7 +15,15 @@ Dark theme, rounded corners, cleaner spacing, a modern font and Easy/Medium/Hard
 
 **Description:**
 
-ForcesBetter gives Codeforces a calm, modern look without changing how it works.
+ForcesBetter gives Codeforces a calm, modern look and a code editor right next to the problem.
+
+CODE EDITOR
+• The statement on the left, an editor on the right, like on modern judges. Drag to resize.
+• Syntax highlighting and autocompletion for C++, Python, Java, Kotlin, Rust, Go and more.
+• Run your code on your own input, or check it against every sample in one click. Codeforces runs it through its Custom Invocation, so you get real verdicts, time and memory.
+• The Samples tab shows each input with its expected answer and your output.
+• Submit sends the code to the Codeforces submit form with the problem and language filled in.
+• Drafts are saved per problem. Optional focus mode hides the site navigation.
 
 LOOK AND FEEL
 • Dark theme with neutral panels, readable formulas and code. Toggle it from the header or follow your system.
@@ -29,12 +37,12 @@ SOLVING PROBLEMS
 • One-click difficulty filters in the problem archive.
 • Compact time and memory limits with icons.
 • Samples side by side, test cases grouped and highlighted on hover.
-• A tidy submit form and a dark code editor.
+• A tidy submit form, an optional hidden footer.
 
 Works on problems, the archive, submit, status, standings, custom test, blogs, contests and profiles.
 
 PRIVACY
-No account, no analytics, no network requests. Settings are stored in Chrome sync storage. The only permission is "storage".
+No analytics and no servers of our own. Code is only sent to codeforces.com, when you press Run, Samples or Submit. Settings are stored in Chrome sync storage. The only permission is "storage".
 
 Open source: https://github.com/DarkichJs/ForcesBetter
 Not affiliated with Codeforces.
@@ -47,14 +55,14 @@ Not affiliated with Codeforces.
 
 ## Privacy practices
 
-**Single purpose:** Restyle codeforces.com pages: dark/light theme, rounded corners, modern font and difficulty tags.
+**Single purpose:** Improve solving problems on codeforces.com: a cleaner dark/light look, difficulty tags and a code editor with sample testing next to the statement.
 
 **Permission justification**
 - `storage`: saves the user's appearance settings (theme, accent color, corner radius, font, page width).
-- Host access (`codeforces.com`, `*.codeforces.com` via content scripts): injects the stylesheet and script that change the page's appearance. No other sites are accessed.
+- Host access (`codeforces.com`, `*.codeforces.com` via content scripts): injects the stylesheet and scripts that change the page's appearance and add the code editor. On Run, the editor posts the code to Codeforces' own Custom Invocation in the user's session. No other sites are accessed.
 
-**Remote code:** No, the extension uses no remote code. All scripts, styles and fonts ship in the package.
+**Remote code:** No, the extension uses no remote code. All scripts (including the bundled Ace editor), styles and fonts ship in the package.
 
-**Data usage:** The extension does not collect or use any user data. Tick none of the data types and confirm all three certifications.
+**Data usage:** The extension does not collect user data: code is only sent to codeforces.com at the user's request, never to the developer. Tick none of the data types and confirm all three certifications.
 
 **Privacy policy URL:** https://github.com/DarkichJs/ForcesBetter/blob/main/PRIVACY.md
