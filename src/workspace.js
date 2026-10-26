@@ -9,9 +9,9 @@
   const problem = (() => {
     const path = location.pathname;
     let m = path.match(/^\/problemset\/problem\/(\d+)\/(\w+)/);
-    if (m) return { key: m[1] + m[2], submit: "/problemset/submit", code: m[1] + m[2] };
+    if (m) return { key: m[1] + m[2], submit: "/problemset/submit", code: m[1] + m[2], back: "/problemset" };
     m = path.match(/^(\/(?:group\/\w+\/)?(?:contest|gym)\/(\d+))\/problem\/(\w+)/);
-    if (m) return { key: m[2] + m[3], submit: `${m[1]}/submit`, index: m[3] };
+    if (m) return { key: m[2] + m[3], submit: `${m[1]}/submit`, index: m[3], back: m[1] };
     return null;
   })();
   if (!problem) return;
@@ -61,6 +61,8 @@
   const modeOf = (name = "") => MODES.find(([re]) => re.test(name)) ?? [null, "c_cpp", ".cpp"];
 
   const ICONS = {
+    back: '<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
     code: '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
     play: '<path d="M7 4.5v15l12-7.5z"/>',
     flask: '<path d="M9 3h6"/><path d="M10 3v6.5L4.6 18.2A1.8 1.8 0 0 0 6.1 21h11.8a1.8 1.8 0 0 0 1.5-2.8L14 9.5V3"/><path d="M7.5 15h9"/>',
@@ -607,14 +609,45 @@
     chrome.storage.sync.set({ editor: on });
   });
 
+  const topbar = el("header", { className: "cfb-topbar" });
+  const statementTitle = content.querySelector(".problem-statement .header .title")?.textContent.trim() ?? "";
+  const profile = document.querySelector('#header a[href^="/profile/"]');
+  topbar.innerHTML = `
+    <a class="cfb-topbar-btn" title="Back to problems">${icon("back")}</a>
+    <h1 class="cfb-topbar-title"><span></span><small></small></h1>
+    <span class="cfb-spacer"></span>
+    <span class="cfb-topbar-actions"></span>
+    <a class="cfb-topbar-btn cfb-topbar-user">${icon("user")}</a>`;
+  topbar.querySelector("a").href = problem.back;
+  topbar.querySelector(".cfb-topbar-title span").textContent = statementTitle.replace(/^\w+\.\s*/, "");
+  topbar.querySelector(".cfb-topbar-title small").textContent = `#${problem.key}`;
+  const userLink = topbar.querySelector(".cfb-topbar-user");
+  userLink.href = profile?.getAttribute("href") ?? "/enter";
+  userLink.title = profile ? profile.textContent.trim() : "Log in";
+
+  function placeTopbar(compact) {
+    const actions = document.querySelector(".cfb-header-actions");
+    if (compact) {
+      if (!topbar.isConnected) (split.previousElementSibling?.classList.contains("second-level-menu") ? split.previousElementSibling : split).before(topbar);
+      if (actions && actions.parentElement !== topbar.querySelector(".cfb-topbar-actions")) topbar.querySelector(".cfb-topbar-actions").append(actions);
+    } else {
+      topbar.remove();
+      if (actions && !actions.closest("#header")) document.querySelector("#header .lang-chooser")?.prepend(actions);
+    }
+  }
+
   function sync() {
     const on = root.hasAttribute("data-cfb") && root.hasAttribute("data-cfb-editor");
     if (on) mount();
     else unmount();
+    placeTopbar(on && root.hasAttribute("data-cfb-compact"));
     toggle.hidden = !root.hasAttribute("data-cfb");
     toggle.title = on ? "Hide the code editor" : "Show the code editor";
     toggle.setAttribute("aria-pressed", String(on));
-    if (!toggle.isConnected) placeToggle();
+    if (!toggle.isConnected) {
+      placeToggle();
+      placeTopbar(on && root.hasAttribute("data-cfb-compact"));
+    }
     fit();
   }
 
@@ -646,7 +679,7 @@
 
   renderSamples();
   sync();
-  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor", "data-cfb-no-footer"] });
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor", "data-cfb-no-footer", "data-cfb-compact"] });
   window.addEventListener("resize", fit);
   new ResizeObserver(() => editor.resize()).observe($(".cfb-ace"));
 })();

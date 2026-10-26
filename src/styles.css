@@ -2577,3 +2577,72 @@ html[data-cfb][data-cfb-no-footer] #body:has(.cfb-split) {
 html[data-cfb] .cfb-pre.cfb-pre--muted {
   color: var(--cfb-muted) !important;
 }
+
+html[data-cfb][data-cfb-compact][data-cfb-editor] #body:has(.cfb-topbar) > #header,
+html[data-cfb][data-cfb-compact][data-cfb-editor] #body:has(.cfb-topbar) > .roundbox.menu-box,
+html[data-cfb][data-cfb-compact][data-cfb-editor] #body:has(.cfb-topbar) > .second-level-menu {
+  display: none !important;
+}
+
+html[data-cfb] .cfb-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  font-family: var(--cfb-font);
+}
+
+html[data-cfb] .cfb-topbar-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--cfb-text);
+  font: 600 17px/1.2 var(--cfb-font) !important;
+  letter-spacing: -0.01em;
+}
+
+html[data-cfb] .cfb-topbar-title span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-cfb] .cfb-topbar-title small {
+  color: var(--cfb-muted);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+html[data-cfb] .cfb-topbar-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 999px;
+  color: var(--cfb-text) !important;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease;
+}
+
+html[data-cfb] .cfb-topbar-btn:hover {
+  background: var(--cfb-surface-3);
+}
+
+html[data-cfb] .cfb-topbar-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+html[data-cfb] .cfb-topbar-user {
+  border: 1px solid var(--cfb-border);
+  background: var(--cfb-surface);
+}
+
+html[data-cfb] .cfb-topbar-actions {
+  display: flex;
+}

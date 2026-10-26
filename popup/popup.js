@@ -7,6 +7,7 @@ const DEFAULTS = {
   wide: false,
   editor: true,
   footer: true,
+  compact: false,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -29,6 +30,7 @@ function render(s) {
   $("wide").checked = s.wide;
   $("editor").checked = s.editor;
   $("footer").checked = !s.footer;
+  $("compact").checked = s.compact;
 }
 
 function save(patch) {
@@ -45,6 +47,7 @@ $("font").addEventListener("change", (e) => save({ font: e.target.checked ? "mod
 $("wide").addEventListener("change", (e) => save({ wide: e.target.checked }));
 $("editor").addEventListener("change", (e) => save({ editor: e.target.checked }));
 $("footer").addEventListener("change", (e) => save({ footer: !e.target.checked }));
+$("compact").addEventListener("change", (e) => save({ compact: e.target.checked }));
 
 $("radius").addEventListener("input", (e) => {
   $("radius-value").textContent = `${e.target.value}px`;
