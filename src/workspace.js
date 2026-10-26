@@ -614,12 +614,18 @@
     fitFrame = requestAnimationFrame(() => {
       if (!split.isConnected) return;
       const top = split.getBoundingClientRect().top + window.scrollY;
-      split.style.setProperty("--cfb-split-h", `${Math.max(480, Math.round(window.innerHeight - top - 12))}px`);
+      let height = Math.max(480, Math.round(window.innerHeight - top - 12));
+      split.style.setProperty("--cfb-split-h", `${height}px`);
+      const overflow = document.documentElement.scrollHeight - window.innerHeight;
+      if (root.hasAttribute("data-cfb-no-footer") && overflow > 0 && height - overflow >= 480) {
+        height -= overflow;
+        split.style.setProperty("--cfb-split-h", `${height}px`);
+      }
     });
   }
 
   sync();
-  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor"] });
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-cfb", "data-cfb-editor", "data-cfb-no-footer"] });
   window.addEventListener("resize", fit);
   new ResizeObserver(() => editor.resize()).observe($(".cfb-ace"));
 })();

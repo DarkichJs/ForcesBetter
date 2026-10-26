@@ -2555,3 +2555,15 @@ html[data-cfb] .cfb-handoff {
     margin-top: 14px;
   }
 }
+
+html[data-cfb][data-cfb-no-footer] #footer {
+  display: none !important;
+}
+
+html[data-cfb][data-cfb-no-footer] #body {
+  padding-bottom: 16px;
+}
+
+html[data-cfb][data-cfb-no-footer] #body:has(.cfb-split) {
+  padding-bottom: 0;
+}

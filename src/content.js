@@ -7,6 +7,7 @@
     font: "modern",
     wide: false,
     editor: true,
+    footer: true,
   };
   const CACHE_KEY = "forcesBetter:settings";
   const root = document.documentElement;
@@ -35,7 +36,7 @@
 
   function apply() {
     if (!settings.enabled) {
-      for (const attr of ["data-cfb", "data-cfb-theme", "data-cfb-font", "data-cfb-wide", "data-cfb-editor"]) {
+      for (const attr of ["data-cfb", "data-cfb-theme", "data-cfb-font", "data-cfb-wide", "data-cfb-editor", "data-cfb-no-footer"]) {
         root.removeAttribute(attr);
       }
       root.style.removeProperty("--cfb-radius");
@@ -51,6 +52,8 @@
     else root.removeAttribute("data-cfb-wide");
     if (settings.editor) root.setAttribute("data-cfb-editor", "");
     else root.removeAttribute("data-cfb-editor");
+    if (settings.footer) root.removeAttribute("data-cfb-no-footer");
+    else root.setAttribute("data-cfb-no-footer", "");
     root.style.setProperty("--cfb-radius", `${Number(settings.radius) || 0}px`);
     root.style.setProperty("--cfb-accent", settings.accent);
     root.style.setProperty("--cfb-on-accent", onAccent(settings.accent));
