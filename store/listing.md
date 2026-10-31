@@ -32,6 +32,11 @@ LOOK AND FEEL
 • Modern font (Geist and Geist Mono).
 • Six accent colors and an optional wide page.
 
+PROFILES
+• A clean rating chart with soft rank bands and details for every contest on hover.
+• The activity heatmap in your accent color, with tidy counters.
+• Line icons and a calmer layout for the profile card.
+
 SOLVING PROBLEMS
 • Easy / Medium / Hard tags for every problem, based on its rating (≤1200, 1300–1900, ≥2000).
 • One-click difficulty filters in the problem archive.
