@@ -92,6 +92,16 @@
         "src/workspace.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "*://codeforces.com/profile/*",
+        "*://*.codeforces.com/profile/*"
+      ],
+      "js": [
+        "src/profile.js"
+      ],
+      "run_at": "document_end"
     }
   ]
 }

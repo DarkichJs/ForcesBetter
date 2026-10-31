@@ -65,6 +65,12 @@ ForcesBetter restyles [Codeforces](https://codeforces.com) and puts a code edito
   <img src="store/screenshots/4-light-theme.png" width="49%" alt="Problem page in the light theme">
 </p>
 
+### Profiles
+
+- **Rating graph.** A clean chart with soft rank bands, hover details for every contest, and current rating, max rating, contests and best place on top.
+- **Activity.** The yearly heatmap in your accent color with rounded cells and tidy counters.
+- **Profile card.** Line icons instead of the old PNGs, a rounded photo and a calm layout.
+
 ### Settings
 
 Everything is configured from the toolbar popup and follows you to other devices through Chrome sync.

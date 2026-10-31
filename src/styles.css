@@ -2646,3 +2646,418 @@ html[data-cfb] .cfb-topbar-user {
 html[data-cfb] .cfb-topbar-actions {
   display: flex;
 }
+
+html[data-cfb] .userbox {
+  display: flow-root;
+  padding: 22px 24px !important;
+}
+
+html[data-cfb] .userbox .title-photo > div {
+  width: 220px !important;
+  min-height: 0 !important;
+  margin: 0 0 8px 24px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+html[data-cfb] .userbox .title-photo > div > div:first-child > div {
+  min-height: 0 !important;
+  line-height: 0 !important;
+}
+
+html[data-cfb] .userbox .title-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--cfb-radius);
+  box-shadow: 0 0 0 1px var(--cfb-border);
+}
+
+html[data-cfb] .userbox .title-photo .smaller {
+  margin-top: 10px !important;
+  font-size: 1.2rem;
+}
+
+html[data-cfb] .userbox .main-info {
+  margin-bottom: 18px;
+}
+
+html[data-cfb] .userbox .user-rank {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+html[data-cfb] .userbox .user-rank .user-black {
+  color: var(--cfb-muted) !important;
+}
+
+html[data-cfb] .userbox .main-info h1 {
+  margin: 4px 0 0 !important;
+  font-size: 3rem !important;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+html[data-cfb] .userbox .main-info h1 a {
+  text-decoration: none !important;
+}
+
+html[data-cfb] .userbox .info > ul {
+  display: grid;
+  gap: 4px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+html[data-cfb] .userbox .info > ul > li {
+  display: block;
+  min-height: 30px;
+  margin: 0 0 6px !important;
+  font-size: 1.45rem;
+  line-height: 30px;
+  color: var(--cfb-text);
+}
+
+html[data-cfb] .cfb-li-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-3);
+  color: var(--cfb-muted);
+}
+
+html[data-cfb] .cfb-li-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+html[data-cfb] .cfb-li-icon--star_blue {
+  background: color-mix(in srgb, #60a5fa 16%, transparent);
+  color: #60a5fa;
+}
+
+html[data-cfb] .cfb-li-icon--star_yellow {
+  background: color-mix(in srgb, #fbbf24 16%, transparent);
+  color: #f59e0b;
+}
+
+html[data-cfb] .personal-sidebar .cfb-li-icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+html[data-cfb] .personal-sidebar .cfb-li-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+html[data-cfb] .personal-sidebar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px !important;
+}
+
+html[data-cfb] .personal-sidebar .for-avatar {
+  float: none !important;
+  flex: none;
+}
+
+html[data-cfb] .personal-sidebar .avatar {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+html[data-cfb] .personal-sidebar .avatar img {
+  width: 72px;
+  height: auto;
+  border-radius: var(--cfb-radius-sm);
+  box-shadow: 0 0 0 1px var(--cfb-border);
+}
+
+html[data-cfb] .personal-sidebar ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+html[data-cfb] .personal-sidebar .propertyLinks {
+  margin-bottom: 8px !important;
+  font-size: 1.3rem;
+}
+
+html[data-cfb] .personal-sidebar .nav-links {
+  display: grid;
+  gap: 2px;
+}
+
+html[data-cfb] .personal-sidebar .nav-links li {
+  display: block !important;
+  list-style: none !important;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 1.3rem;
+}
+
+html[data-cfb] .personal-sidebar .nav-links a {
+  display: block;
+  padding: 3px 8px;
+  margin-left: -8px;
+  border-radius: 6px;
+  text-decoration: none !important;
+}
+
+html[data-cfb] .personal-sidebar .nav-links a:hover {
+  background: var(--cfb-surface-3);
+}
+
+html[data-cfb][data-cfb-rating] .roundbox:has(> #usersRatingGraphPlaceholder),
+html[data-cfb][data-cfb-rating] .roundbox:has(#usersRatingGraphPlaceholder) {
+  display: none !important;
+}
+
+html:not([data-cfb]) .cfb-rating {
+  display: none;
+}
+
+html[data-cfb] .cfb-rating {
+  margin: 14px 0;
+  padding: 18px 20px 12px;
+  border: 1px solid var(--cfb-border);
+  border-radius: var(--cfb-radius);
+  background: var(--cfb-surface);
+  box-shadow: var(--cfb-shadow);
+  font-family: var(--cfb-font);
+  color: var(--cfb-text);
+}
+
+html[data-cfb] .cfb-rating-head {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+html[data-cfb] .cfb-rating-stat {
+  padding: 10px 12px;
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-2);
+  border: 1px solid var(--cfb-border);
+}
+
+html[data-cfb] .cfb-rating-stat strong {
+  display: block;
+  font-size: 2rem;
+  font-weight: 650;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-cfb] .cfb-rating-stat span {
+  color: var(--cfb-muted);
+  font-size: 1.2rem;
+}
+
+html[data-cfb] .cfb-rating-plot {
+  position: relative;
+}
+
+html[data-cfb] .cfb-rating-plot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+html[data-cfb] .cfb-rating-grid {
+  stroke: var(--cfb-border);
+  stroke-dasharray: 3 4;
+}
+
+html[data-cfb] .cfb-rating-axis {
+  fill: var(--cfb-muted);
+  font: 11px var(--cfb-mono);
+}
+
+html[data-cfb] .cfb-rating-line {
+  fill: none;
+  stroke: var(--cfb-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+html[data-cfb] .cfb-rating-dot {
+  stroke: var(--cfb-surface);
+  stroke-width: 1.5;
+  transition: r 0.12s ease;
+}
+
+html[data-cfb] .cfb-rating-dot.is-active {
+  r: 6;
+}
+
+html[data-cfb] .cfb-rating-cursor {
+  stroke: var(--cfb-border-strong);
+  stroke-dasharray: 2 3;
+}
+
+html[data-cfb] .cfb-rating-tip {
+  position: absolute;
+  z-index: 2;
+  max-width: 300px;
+  padding: 8px 10px;
+  border: 1px solid var(--cfb-border-strong);
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+html[data-cfb] .cfb-rating-tip strong,
+html[data-cfb] .cfb-rating-tip span,
+html[data-cfb] .cfb-rating-tip small {
+  display: block;
+}
+
+html[data-cfb] .cfb-rating-tip small {
+  color: var(--cfb-muted);
+}
+
+html[data-cfb] .cfb-rating-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 26px 12px 20px;
+  color: var(--cfb-muted);
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+html[data-cfb] .cfb-rating-empty svg {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 6px;
+  padding: 10px;
+  border-radius: 50%;
+  background: var(--cfb-accent-soft);
+  color: var(--cfb-accent);
+  box-sizing: content-box;
+}
+
+html[data-cfb] .cfb-rating-empty strong {
+  color: var(--cfb-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+html[data-cfb] .userActivityRoundBox {
+  padding: 18px 20px !important;
+}
+
+html[data-cfb] ._UserActivityFrame_header {
+  margin-bottom: 10px;
+  color: var(--cfb-muted);
+  font-size: 1.25rem;
+}
+
+html[data-cfb] #userActivityGraph svg rect.day {
+  rx: 2.5px;
+  ry: 2.5px;
+}
+
+html[data-cfb] #userActivityGraph svg rect.day {
+  fill: color-mix(in srgb, var(--cfb-accent) 70%, var(--cfb-surface-3));
+}
+
+html[data-cfb] #userActivityGraph svg rect.day[fill="#EBEDF0" i] {
+  fill: var(--cfb-surface-3);
+}
+
+html[data-cfb] #userActivityGraph svg rect.day:is([fill="#C6E48B" i], [fill="#9BE9A8" i], [fill="#91DA9E" i]) {
+  fill: color-mix(in srgb, var(--cfb-accent) 32%, var(--cfb-surface-3));
+}
+
+html[data-cfb] #userActivityGraph svg rect.day:is([fill="#7BC96F" i], [fill="#40C463" i]) {
+  fill: color-mix(in srgb, var(--cfb-accent) 56%, var(--cfb-surface-3));
+}
+
+html[data-cfb] #userActivityGraph svg rect.day:is([fill="#239A3B" i], [fill="#30A14E" i]) {
+  fill: color-mix(in srgb, var(--cfb-accent) 80%, var(--cfb-surface-3));
+}
+
+html[data-cfb] #userActivityGraph svg rect.day:is([fill="#196127" i], [fill="#216E39" i]) {
+  fill: var(--cfb-accent);
+}
+
+html[data-cfb] #userActivityGraph svg text {
+  fill: var(--cfb-muted);
+  font-family: var(--cfb-font);
+}
+
+html[data-cfb] ._UserActivityFrame_footer {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+html[data-cfb] ._UserActivityFrame_countersRow {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 !important;
+}
+
+html[data-cfb] ._UserActivityFrame_counter {
+  width: auto !important;
+  margin: 0 !important;
+  padding: 10px 12px;
+  border: 1px solid var(--cfb-border);
+  border-radius: var(--cfb-radius-sm);
+  background: var(--cfb-surface-2);
+  text-align: left !important;
+}
+
+html[data-cfb] ._UserActivityFrame_counterValue {
+  color: var(--cfb-text);
+  font-size: 1.8rem !important;
+  font-weight: 650;
+}
+
+html[data-cfb] ._UserActivityFrame_counterDescription {
+  color: var(--cfb-muted);
+  font-size: 1.2rem !important;
+}
+
+html[data-cfb] #header .lang-chooser > div[style*="EAF4FF"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px !important;
+  border: 1px solid color-mix(in srgb, var(--cfb-accent) 35%, transparent);
+  border-radius: 999px;
+  background: var(--cfb-accent-soft) !important;
+  color: var(--cfb-text);
+  font-size: 1.2rem !important;
+}
+
+html[data-cfb] #header .lang-chooser > div[style*="EAF4FF"] span {
+  bottom: 0 !important;
+}
+
+html[data-cfb] #header .lang-chooser > div[style*="EAF4FF"] img {
+  display: none;
+}
